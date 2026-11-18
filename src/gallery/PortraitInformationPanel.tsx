@@ -75,6 +75,11 @@ export function PortraitInformationPanel({
             alt={portrait.name}
             onError={() => setFailedSrc(portrait.imagePath ?? null)}
           />
+          {portrait.description && (
+            <p className="gr-description" style={{ marginTop: '14px', lineHeight: '1.6', fontSize: '14px', color: '#ecd9b0' }}>
+              {portrait.description}
+            </p>
+          )}
           <div className="gr-index">
             Portrait {index + 1} of {total}
           </div>

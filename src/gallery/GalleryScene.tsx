@@ -8,10 +8,15 @@ import { GalleryEnvironment } from './GalleryEnvironment'
 import { GalleryLighting } from './GalleryLighting'
 import { GalleryWalls } from './GalleryWalls'
 import { FirstPersonControls } from './FirstPersonControls'
+import { PressurePlate } from './PressurePlate'
 import { DesktopHints } from './DesktopHints'
 import { MobileControls } from './MobileControls'
 import { PortraitInformationPanel } from './PortraitInformationPanel'
 import './gallery.css'
+
+interface GallerySceneProps {
+  onSwitchRoom?: (room: 'classic' | 'modern') => void
+}
 
 function useIsMobile(): boolean {
   const [isMobile, setIsMobile] = useState(false)
@@ -30,7 +35,7 @@ function useIsMobile(): boolean {
  * The Canvas contains only three.js elements; all UI overlays are HTML
  * siblings of the Canvas so React DOM and the R3F reconciler stay separated.
  */
-export function GalleryScene() {
+export function GalleryScene({ onSwitchRoom }: GallerySceneProps) {
   const isMobile = useIsMobile()
   const [selectedId, setSelectedId] = useState<string | null>(null)
   const [hoveredId, setHoveredId] = useState<string | null>(null)
@@ -51,6 +56,9 @@ export function GalleryScene() {
 
   useEffect(() => {
     panelOpenRef.current = selectedId !== null
+    if (selectedId !== null && document.pointerLockElement) {
+      document.exitPointerLock()
+    }
   }, [selectedId])
 
   const handleSelect = useCallback((id: string) => {
@@ -92,6 +100,17 @@ export function GalleryScene() {
             onSelect={handleSelect}
             onHover={handleHover}
           />
+          {onSwitchRoom && (
+            <PressurePlate
+              position={[0, 0, 9.8]}
+              onStepOn={() => onSwitchRoom('modern')}
+              beamColor="#38bdf8"
+              accentColor="#0284c7"
+              label="KE RUANG MODERN"
+              height={4.4}
+              activationRadius={1.1}
+            />
+          )}
         </Suspense>
         <FirstPersonControls
           resetSignal={resetSignal}

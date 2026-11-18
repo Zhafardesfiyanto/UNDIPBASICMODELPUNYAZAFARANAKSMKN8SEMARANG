@@ -7,6 +7,8 @@ export interface Portrait {
   years: string
   /** Optional local image path. Falls back to a generated placeholder when missing. */
   imagePath?: string
+  /** Optional description or biography notes. */
+  description?: string
 }
 
 export interface PortraitFrameProps {

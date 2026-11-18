@@ -40,6 +40,8 @@ export const CORRIDOR = {
 export const CORRIDOR_LENGTH = CORRIDOR.zFront - CORRIDOR.zBack
 export const MOVE_MIN_Z = CORRIDOR.zBack + 1.5
 export const MOVE_MAX_Z = CORRIDOR.zFront - 1.5
+export const MOVE_MIN_X = -1.8
+export const MOVE_MAX_X = 1.8
 
 /** Decorative pilasters: between portrait slots, plus one before the end wall. */
 export const PILASTER_ZS: number[] = (() => {

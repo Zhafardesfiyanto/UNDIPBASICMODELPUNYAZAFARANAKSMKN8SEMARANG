@@ -3,17 +3,12 @@ export function DesktopHints() {
   return (
     <div className="gr-hints" aria-hidden="true">
       <span>
-        <kbd>W</kbd>
-        <kbd>↑</kbd> forward
+        <kbd>W</kbd> <kbd>A</kbd> <kbd>S</kbd> <kbd>D</kbd> / <kbd>↑</kbd> <kbd>←</kbd> <kbd>↓</kbd> <kbd>→</kbd> jalan
       </span>
+      <span>gerakkan mouse / drag untuk melihat</span>
+      <span>klik lukisan untuk info</span>
       <span>
-        <kbd>S</kbd>
-        <kbd>↓</kbd> backward
-      </span>
-      <span>mouse to look</span>
-      <span>click a portrait</span>
-      <span>
-        <kbd>ESC</kbd> release cursor
+        <kbd>ESC</kbd> lepas kursor
       </span>
     </div>
   )

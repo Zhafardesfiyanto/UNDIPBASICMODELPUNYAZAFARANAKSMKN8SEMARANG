@@ -1,0 +1,642 @@
+/* =========================================================
+   Museum Virtual Undip — Official 5 Zones Style
+   Palette: Navy Blue (#0f2347), Gold (#d4af37), Ivory (#fbf8f2), Heritage Brown (#3d2614)
+   ========================================================= */
+
+.museum-zone-root {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #0b111e;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  user-select: none;
+}
+
+/* =========================================================
+   Top Branding Header
+   ========================================================= */
+.museum-top-header {
+  position: absolute;
+  top: 16px;
+  left: 24px;
+  right: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  pointer-events: none;
+  z-index: 20;
+}
+
+.museum-branding {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: rgba(15, 35, 71, 0.88);
+  backdrop-filter: blur(12px);
+  padding: 8px 18px;
+  border-radius: 12px;
+  border: 1.5px solid rgba(212, 175, 55, 0.45);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+  color: #fbf8f2;
+}
+
+.museum-logo-crest {
+  font-size: 26px;
+  background: rgba(212, 175, 55, 0.15);
+  border: 1px solid #d4af37;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: #d4af37;
+}
+
+.museum-zone-code-tag {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #d4af37;
+  text-transform: uppercase;
+}
+
+.museum-zone-main-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.3px;
+}
+
+.museum-zone-sub-title {
+  margin: 2px 0 0;
+  font-size: 12px;
+  color: #cbd5e1;
+}
+
+/* Quick Zone Nav Pills */
+.museum-quick-nav {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(15, 23, 42, 0.82);
+  backdrop-filter: blur(12px);
+  padding: 5px 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.nav-pill {
+  background: transparent;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 999px;
+  color: #94a3b8;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.nav-pill:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.nav-pill.active {
+  background: #d4af37;
+  color: #0f2347;
+  font-weight: 700;
+  box-shadow: 0 2px 10px rgba(212, 175, 55, 0.4);
+}
+
+/* =========================================================
+   Floor Plan Minimap (Top-Left)
+   ========================================================= */
+.museum-floorplan-widget {
+  position: fixed;
+  top: 16px;
+  left: 18px;
+  z-index: 100;
+  width: 195px;
+  background: #0f2347;
+  border-radius: 10px;
+  border: 2px solid #d4af37;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.65), 0 0 18px rgba(212, 175, 55, 0.25);
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+  transform-origin: top left;
+}
+
+/* Hover Scale-up */
+.museum-floorplan-widget:hover,
+.museum-floorplan-widget.is-hovered {
+  transform: scale(1.15);
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.8), 0 0 25px rgba(212, 175, 55, 0.4);
+}
+
+.floorplan-header {
+  padding: 6px 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #09172f;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+.floorplan-title {
+  font-size: 9.5px;
+  font-weight: 700;
+  color: #d4af37;
+  letter-spacing: 0.6px;
+}
+
+.floorplan-expand-btn {
+  background: transparent;
+  border: none;
+  font-size: 10px;
+  color: #38bdf8;
+  cursor: pointer;
+  padding: 0;
+  font-weight: 600;
+}
+
+.floorplan-svg-container {
+  width: 100%;
+  padding: 4px;
+}
+
+.floorplan-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* SVG Room Nodes */
+.room-node {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.room-node rect {
+  fill: #162a4a;
+  stroke: #2b456f;
+  stroke-width: 1.5;
+  transition: all 0.2s ease;
+}
+
+.room-node:hover rect {
+  fill: #1e3a8a;
+  stroke: #38bdf8;
+}
+
+.room-node.active rect {
+  fill: #0f2347;
+  stroke: #d4af37;
+  stroke-width: 2.5;
+}
+
+.room-code {
+  font-size: 10px;
+  font-weight: 700;
+  fill: #94a3b8;
+  pointer-events: none;
+}
+
+.room-node.active .room-code {
+  fill: #d4af37;
+}
+
+.room-label {
+  font-size: 11px;
+  font-weight: 600;
+  fill: #ffffff;
+  pointer-events: none;
+}
+
+.pin-pulse-dot {
+  animation: pulse-pin 1.6s infinite ease-out;
+  pointer-events: none;
+}
+
+@keyframes pulse-pin {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.4); opacity: 0.8; }
+}
+
+.floorplan-footer {
+  padding: 4px 8px;
+  background: #09172f;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.footer-zone-code {
+  font-weight: 700;
+  color: #d4af37;
+  margin-right: 4px;
+}
+
+.footer-zone-title {
+  color: #e2e8f0;
+}
+
+/* =========================================================
+   Bottom Desktop Navigation Hints
+   ========================================================= */
+.museum-hints-bar {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: rgba(15, 35, 71, 0.85);
+  backdrop-filter: blur(12px);
+  padding: 8px 22px;
+  border-radius: 999px;
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  color: #e2e8f0;
+  font-size: 12.5px;
+  pointer-events: none;
+  z-index: 20;
+}
+
+.museum-hints-bar kbd {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: #d4af37;
+  font-weight: 700;
+  margin: 0 2px;
+}
+
+/* =========================================================
+   Exhibit Detail Modal Panel (Pop-up di Tengah Layar)
+   ========================================================= */
+.museum-detail-scrim {
+  position: absolute;
+  inset: 0;
+  background: rgba(11, 17, 30, 0.78);
+  backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 24px;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.museum-detail-panel {
+  width: 100%;
+  max-width: 640px;
+  max-height: 85vh;
+  background: #fbf8f2; /* Ivory */
+  color: #1e293b;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(212, 175, 55, 0.4);
+  border: 2.5px solid #d4af37;
+  border-radius: 16px;
+  overflow: hidden;
+  animation: popUpScale 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes popUpScale {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.museum-detail-head {
+  padding: 18px 24px;
+  background: #0f2347;
+  color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #d4af37;
+}
+
+.museum-detail-badge-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.museum-detail-category {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #d4af37;
+  letter-spacing: 0.6px;
+}
+
+.museum-detail-year {
+  font-size: 11px;
+  background: rgba(212, 175, 55, 0.2);
+  color: #d4af37;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.museum-detail-close {
+  background: transparent;
+  border: none;
+  font-size: 26px;
+  color: #cbd5e1;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.museum-detail-close:hover {
+  color: #d4af37;
+}
+
+.museum-detail-body {
+  padding: 24px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.museum-detail-title {
+  margin: 0 0 6px;
+  font-size: 22px;
+  font-weight: 700;
+  color: #0f2347;
+}
+
+.museum-detail-subtitle {
+  margin: 0 0 18px;
+  font-size: 14px;
+  color: #64748b;
+  font-style: italic;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.museum-detail-image-box {
+  width: 100%;
+  max-height: 280px;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 20px;
+  border: 2px solid #d4af37;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  background: #0f2347;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.museum-detail-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.museum-detail-heading {
+  margin: 0 0 8px;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #3d2614;
+  letter-spacing: 0.5px;
+}
+
+.museum-detail-desc {
+  margin: 0;
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: #334155;
+}
+
+.museum-detail-foot {
+  padding: 16px 24px;
+  border-top: 1px solid #e2e8f0;
+  background: #f1ede5;
+}
+
+.museum-detail-btn {
+  width: 100%;
+  padding: 12px;
+  background: #0f2347;
+  color: #d4af37;
+  border: 1px solid #d4af37;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.museum-detail-btn:hover {
+  background: #d4af37;
+  color: #0f2347;
+}
+
+/* =========================================================
+   Expanded Master Floor Plan Modal
+   ========================================================= */
+.curation-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(9, 17, 30, 0.88);
+  backdrop-filter: blur(8px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  animation: fadeIn 0.25s ease;
+}
+
+.curation-modal-window {
+  width: 100%;
+  max-width: 1100px;
+  max-height: 88vh;
+  background: #0f2347;
+  border: 2px solid #d4af37;
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 25px 65px rgba(0, 0, 0, 0.8), 0 0 30px rgba(212, 175, 55, 0.25);
+}
+
+.curation-modal-head {
+  padding: 20px 28px;
+  background: #0b172a;
+  border-bottom: 1.5px solid rgba(212, 175, 55, 0.4);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.curation-modal-badge {
+  font-size: 11px;
+  font-weight: 700;
+  color: #d4af37;
+  letter-spacing: 0.8px;
+}
+
+.curation-modal-title {
+  margin: 4px 0 2px;
+  font-size: 22px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.curation-modal-sub {
+  margin: 0;
+  font-size: 13px;
+  color: #94a3b8;
+}
+
+.curation-modal-close {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.curation-modal-close:hover {
+  background: #ef4444;
+  border-color: #ef4444;
+  transform: rotate(90deg);
+}
+
+.curation-zones-grid {
+  padding: 24px;
+  overflow-y: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.curation-zone-card {
+  background: #14284b;
+  border: 1.5px solid rgba(255, 255, 255, 0.12);
+  border-left-width: 5px;
+  border-radius: 10px;
+  padding: 18px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+.curation-zone-card:hover {
+  background: #19325c;
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.4);
+}
+
+.curation-zone-card.is-current {
+  border-color: #d4af37;
+  background: #19325c;
+}
+
+.card-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.card-code-tag {
+  font-size: 10.5px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.card-current-badge {
+  font-size: 10px;
+  font-weight: 700;
+  color: #22c55e;
+}
+
+.card-zone-title {
+  margin: 0 0 4px;
+  font-size: 17px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.card-zone-subtitle {
+  margin: 0 0 10px;
+  font-size: 12px;
+  color: #38bdf8;
+  font-weight: 500;
+}
+
+.card-zone-summary {
+  margin: 0 0 12px;
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: #cbd5e1;
+}
+
+.card-curation-list {
+  background: rgba(0, 0, 0, 0.2);
+  padding: 8px 12px;
+  border-radius: 6px;
+  margin-bottom: 14px;
+  flex: 1;
+}
+
+.curation-list-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #d4af37;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.card-curation-list ul {
+  margin: 0;
+  padding-left: 16px;
+  color: #cbd5e1;
+  font-size: 11.5px;
+  line-height: 1.45;
+}
+
+.card-enter-btn {
+  padding: 9px;
+  border: none;
+  border-radius: 6px;
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}

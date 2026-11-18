@@ -6,7 +6,9 @@ import {
   DRAG_THRESHOLD,
   EYE_HEIGHT,
   LOOK_SENSITIVITY,
+  MOVE_MAX_X,
   MOVE_MAX_Z,
+  MOVE_MIN_X,
   MOVE_MIN_Z,
   PITCH_LIMIT,
   START_Z,
@@ -15,11 +17,23 @@ import {
 
 const FORWARD_KEYS = new Set(['KeyW', 'ArrowUp'])
 const BACKWARD_KEYS = new Set(['KeyS', 'ArrowDown'])
+const STRAFE_LEFT_KEYS = new Set(['KeyA', 'ArrowLeft'])
+const STRAFE_RIGHT_KEYS = new Set(['KeyD', 'ArrowRight'])
+const ALL_MOVE_KEYS = new Set([
+  'KeyW',
+  'ArrowUp',
+  'KeyS',
+  'ArrowDown',
+  'KeyA',
+  'ArrowLeft',
+  'KeyD',
+  'ArrowRight',
+])
 
 /**
  * Constrained first-person controls (renders no DOM of its own):
  * - Desktop: click empty space to lock the mouse, move the mouse to look,
- *   W/S or arrows to walk along the corridor axis only, ESC to release.
+ *   WASD or arrows to walk in the camera facing direction, ESC to release.
  * - Touch: drag anywhere on the scene to look around.
  * Movement is clamped to the corridor; pitch is clamped to a comfortable range.
  */
@@ -34,13 +48,14 @@ export function FirstPersonControls({
   const keys = useRef(new Set<string>())
   const yaw = useRef(0)
   const pitch = useRef(0)
+  const x = useRef(0)
   const z = useRef(START_Z)
   const drag = useRef<{ id: number; x: number; y: number } | null>(null)
 
   // Keyboard
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
-      if (FORWARD_KEYS.has(event.code) || BACKWARD_KEYS.has(event.code)) {
+      if (ALL_MOVE_KEYS.has(event.code)) {
         event.preventDefault()
         keys.current.add(event.code)
       }
@@ -64,7 +79,9 @@ export function FirstPersonControls({
       draggedRef.current = false
       if (event.button !== 0) return
       drag.current = { id: event.pointerId, x: event.clientX, y: event.clientY }
-      element.setPointerCapture?.(event.pointerId)
+      if (event.pointerType !== 'mouse') {
+        element.setPointerCapture?.(event.pointerId)
+      }
     }
 
     const onPointerMove = (event: PointerEvent) => {
@@ -88,7 +105,9 @@ export function FirstPersonControls({
     const onPointerUp = (event: PointerEvent) => {
       if (drag.current?.id === event.pointerId) {
         drag.current = null
-        element.releasePointerCapture?.(event.pointerId)
+        if (event.pointerType !== 'mouse') {
+          element.releasePointerCapture?.(event.pointerId)
+        }
       }
     }
 
@@ -124,6 +143,7 @@ export function FirstPersonControls({
     if (resetSignal === 0) return
     yaw.current = 0
     pitch.current = 0
+    x.current = 0
     z.current = START_Z
     keys.current.clear()
     moveInputRef.current = 0
@@ -134,16 +154,40 @@ export function FirstPersonControls({
   useFrame((_, delta) => {
     const dt = Math.min(delta, 0.05)
 
-    let direction = 0
-    if (Array.from(keys.current).some((code) => FORWARD_KEYS.has(code))) direction -= 1
-    if (Array.from(keys.current).some((code) => BACKWARD_KEYS.has(code))) direction += 1
-    direction += moveInputRef.current
-    direction = Math.max(-1, Math.min(1, direction))
+    let moveForward = 0
+    if (Array.from(keys.current).some((code) => FORWARD_KEYS.has(code))) moveForward += 1
+    if (Array.from(keys.current).some((code) => BACKWARD_KEYS.has(code))) moveForward -= 1
+    moveForward += moveInputRef.current
 
-    // Longitudinal axis only (Z), clamped inside the corridor.
-    z.current = Math.max(MOVE_MIN_Z, Math.min(MOVE_MAX_Z, z.current + direction * WALK_SPEED * dt))
+    let moveStrafe = 0
+    if (Array.from(keys.current).some((code) => STRAFE_RIGHT_KEYS.has(code))) moveStrafe += 1
+    if (Array.from(keys.current).some((code) => STRAFE_LEFT_KEYS.has(code))) moveStrafe -= 1
 
-    camera.position.set(0, EYE_HEIGHT, z.current)
+    moveForward = Math.max(-1, Math.min(1, moveForward))
+    moveStrafe = Math.max(-1, Math.min(1, moveStrafe))
+
+    if (moveForward !== 0 || moveStrafe !== 0) {
+      // Horizontal heading vectors
+      // At yaw = 0, camera faces -Z.
+      const forwardX = -Math.sin(yaw.current)
+      const forwardZ = -Math.cos(yaw.current)
+      const rightX = Math.cos(yaw.current)
+      const rightZ = -Math.sin(yaw.current)
+
+      let vx = moveForward * forwardX + moveStrafe * rightX
+      let vz = moveForward * forwardZ + moveStrafe * rightZ
+
+      const mag = Math.hypot(vx, vz)
+      if (mag > 1) {
+        vx /= mag
+        vz /= mag
+      }
+
+      x.current = Math.max(MOVE_MIN_X, Math.min(MOVE_MAX_X, x.current + vx * WALK_SPEED * dt))
+      z.current = Math.max(MOVE_MIN_Z, Math.min(MOVE_MAX_Z, z.current + vz * WALK_SPEED * dt))
+    }
+
+    camera.position.set(x.current, EYE_HEIGHT, z.current)
     // 'YXZ' order keeps yaw/pitch intuitive for first-person look.
     camera.rotation.set(pitch.current, yaw.current, 0, 'YXZ')
   })

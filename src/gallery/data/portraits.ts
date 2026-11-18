@@ -9,6 +9,13 @@ import type { Portrait } from '../types'
  */
 export const PORTRAITS: Portrait[] = [
   // Left wall
+  {
+    id: 'imam-bardjo',
+    name: 'Mr. Imam Bardjo',
+    years: '1957–1961',
+    imagePath: '/portraits/imam-bardjo.jpg',
+    description: 'Rektor pertama Universitas Diponegoro pada periode tahun 1957 – 1961.',
+  },
   { id: 'kartini', name: 'R.A. Kartini', years: '1879–1904' },
   { id: 'ki-hajar', name: 'Ki Hajar Dewantara', years: '1889–1959' },
   { id: 'soekarno', name: 'Ir. Soekarno', years: '1901–1970' },
