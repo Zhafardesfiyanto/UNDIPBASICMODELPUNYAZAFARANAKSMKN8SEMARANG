@@ -509,69 +509,502 @@ export const MUSEUM_ZONES: MuseumZone[] = [
       },
     ],
   },
+  // --- ZONA 3: THE HERITAGE OF UNDIP ---
   {
     id: 'zona-3',
     code: 'ZONA 3',
     number: 3,
     title: 'The Heritage of Undip',
     subtitle: 'Artefak Akademik, Memorabilia & Arsip Sejarah',
-    themeColor: '#b45309',
-    accentColor: '#d4af37',
+    themeColor: '#b45309', // Deep Amber / Heritage Bronze
+    accentColor: '#d4af37', // Gold
     summary:
-      'Koleksi benda pusaka, manuskrip bersejarah, memorabilia para rektor terkemuka, dan rekaman arsip audiovisual.',
+      'Ruang pusaka agung yang menyimpan koleksi artefak akademik kuno, tongkat pedel prosesi senat, memorabilia para rektor perintis, dokumen bersejarah peresmian nama Diponegoro oleh Ir. Soekarno, dan rekaman arsip audiovisual.',
     curationPoints: [
-      'Artefak akademik kuno & tongkat pedel universitas',
-      'Memorabilia tokoh dan karya rektor legendaris',
-      'Foto sejarah pameran dan Dies Natalis pertama',
-      'Dokumen penting & naskah pidato bersejarah',
+      'Artefak akademik kuno: Tongkat Pedel Senat Undip (1962) & Regalia Kehormatan',
+      'Memorabilia tokoh: Mr. Imam Bardjo, Prof. Soedarto, Prof. Muladi, Prof. Eko Budihardjo',
+      'Foto sejarah: Kunjungan kenegaraan Presiden Ir. Soekarno di Pleburan (9 Januari 1960)',
+      'Dokumen penting: Akta notaris pendirian 1956 & naskah pidato peresmian Diponegoro',
+      'Koleksi audiovisual: Rekaman suara pidato pendirian dan rekaman mars Diponegoro asli',
     ],
     exhibits: [
+      // --- WEST WALL (ARTEFAK & MEMORABILIA TOKOH) ---
       {
         id: 'z3-tongkat-pedel',
         title: 'Tongkat Pedel Upacara Senat Undip',
-        subtitle: 'Kayu jati berukir dengan kepala elang dan lambang keris Diponegoro',
+        subtitle: 'Pusaka Senat Kayu Jati Berukir Lambang Keris Diponegoro (1962)',
         year: '1962',
         category: 'Artefak Akademik',
         description:
-          'Tongkat upacara senat yang selalu dibawa oleh Pedel memimpin barisan prosesi guru besar dalam setiap sidang senat terbuka wisuda dan upacara kenegaraan universitas.',
+          'Tongkat upacara senat yang selalu dibawa oleh Pedel memimpin barisan prosesi guru besar dalam setiap sidang senat terbuka wisuda dan upacara kenegaraan universitas. Menggabungkan ukiran kepala elang emas dan bilah keris Diponegoro.',
         plaqueSummary:
-          'Tongkat pusaka prosesi senat guru besar Undip berukirkan keris dan garuda Diponegoro.',
-        modelType: 'vitrine',
+          'Tongkat pusaka prosesi senat guru besar Undip berbahan kayu jati berukir garuda dan keris Diponegoro bertatahkan emas murni.',
+        modelType: 'portrait',
+        position: [-9.6, 2.5, -10],
+        rotationY: Math.PI / 2,
+        podiumPosition: [-8.2, 0, -10],
+        podiumRotationY: Math.PI / 2,
+      },
+      {
+        id: 'z3-memorabilia-imam-bardjo',
+        title: 'Memorabilia Mr. Imam Bardjo',
+        subtitle: 'Mesin Ketik Perintis & Naskah Pembentukan Universitas (1957)',
+        year: '1957',
+        category: 'Memorabilia Tokoh',
+        description:
+          'Koleksi memorabilia pribadi Rektor Pertama Mr. Imam Bardjo berupa mesin ketik mekanik kuno yang digunakan mengetik berkas perizinan universitas serta buku catatan kerja era perintisan kampus Pleburan.',
+        plaqueSummary:
+          'Mesin ketik mekanik bersejarah dan buku catatan kerja pribadi Mr. Imam Bardjo saksi perintisan awal kelahiran universitas tahun 1957.',
+        modelType: 'portrait',
+        position: [-9.6, 2.5, -5],
+        rotationY: Math.PI / 2,
+        podiumPosition: [-8.2, 0, -5],
+        podiumRotationY: Math.PI / 2,
+      },
+      {
+        id: 'z3-memorabilia-soedarto',
+        title: 'Memorabilia Prof. Mr. Soedarto, S.H.',
+        subtitle: 'Toga Kehormatan Guru Besar Hukum & Naskah Rancangan KUHP',
+        year: '1965',
+        category: 'Memorabilia Tokoh',
+        description:
+          'Jubah toga beludru hitam bersulam emas milik Prof. Soedarto yang dikenakan selama 16 tahun memimpin Undip, didampingi naskah ketikan asli perumusan pembaharuan hukum pidana nasional.',
+        plaqueSummary:
+          'Toga guru besar bersejarah dan naskah hukum monumental karya Prof. Soedarto, peletak fondasi relokasi kampus ke Tembalang.',
+        modelType: 'portrait',
+        position: [-9.6, 2.5, 0],
+        rotationY: Math.PI / 2,
+        podiumPosition: [-8.2, 0, 0],
+        podiumRotationY: Math.PI / 2,
+      },
+      {
+        id: 'z3-memorabilia-muladi',
+        title: 'Memorabilia Prof. Dr. Muladi, S.H.',
+        subtitle: 'Palu Sidang Senat Akademik & Catatan Negarawan (1994)',
+        year: '1994',
+        category: 'Memorabilia Tokoh',
+        description:
+          'Palu sidang kayu jati bersaput kuningan yang digunakan Prof. Muladi dalam sidang-sidang senat bersejarah, serta arsip pidato reformasi perguruan tinggi menjelang era milenium.',
+        plaqueSummary:
+          'Palu sidang senat bersejarah dan kumpulan naskah pemikiran Prof. Muladi dalam memperjuangkan otonomi kampus dan reformasi hukum.',
+        modelType: 'portrait',
+        position: [-9.6, 2.5, 5],
+        rotationY: Math.PI / 2,
+        podiumPosition: [-8.2, 0, 5],
+        podiumRotationY: Math.PI / 2,
+      },
+      {
+        id: 'z3-memorabilia-eko',
+        title: 'Memorabilia Prof. Ir. Eko Budihardjo',
+        subtitle: 'Kacamata Ikonik, Sketsa Arsitektur & Kumpulan Puisi Budaya (1998)',
+        year: '1998',
+        category: 'Memorabilia Tokoh',
+        description:
+          'Kacamata bulat khas, pena gambar arsitektur, dan buku puisi tulisan tangan karya rektor sastrawan legendaris Prof. Eko Budihardjo yang menggaungkan kesadaran ruang hijau humanis di kampus.',
+        plaqueSummary:
+          'Kacamata ikonik, pena sketsa, dan antologi puisi karya Prof. Eko Budihardjo, sang budayawan pembaharu arsitektur lingkungan.',
+        modelType: 'portrait',
+        position: [-9.6, 2.5, 10],
+        rotationY: Math.PI / 2,
+        podiumPosition: [-8.2, 0, 10],
+        podiumRotationY: Math.PI / 2,
+      },
+
+      // --- EAST WALL (FOTO SEJARAH, DOKUMEN & AUDIOVISUAL) ---
+      {
+        id: 'z3-foto-kunjungan-soekarno',
+        title: 'Kunjungan Presiden Ir. Soekarno (1960)',
+        subtitle: 'Peresmian Nama Universitas Diponegoro di Kampus Pleburan',
+        year: '9 Januari 1960',
+        category: 'Foto Sejarah',
+        description:
+          'Foto arsip autentik hitam putih saat Presiden Ir. Soekarno berpidato di hadapan ribuan civitas akademika di Pleburan dan secara resmi menyematkan nama Universitas Diponegoro.',
+        plaqueSummary:
+          'Dokumentasi bersejarah pidato Presiden Ir. Soekarno meresmikan nama Universitas Diponegoro pada upacara Dies Natalis ke-3 tahun 1960.',
+        modelType: 'portrait',
+        position: [9.6, 2.5, -10],
+        rotationY: -Math.PI / 2,
+        podiumPosition: [8.2, 0, -10],
+        podiumRotationY: -Math.PI / 2,
+      },
+      {
+        id: 'z3-arsip-akta-1956',
+        title: 'Akta Notaris Yayasan Universitas (1956)',
+        subtitle: 'Dokumen Hukum Otentik Pendirian Universitas Semarang',
+        year: '1956',
+        category: 'Dokumen Penting',
+        description:
+          'Naskah legal otentik akta pendirian yayasan oleh notaris perintis Semarang yang menjadi payung hukum resmi pembukaan perkuliahan pertama universitas.',
+        plaqueSummary:
+          'Salinan akta notaris resmi tahun 1956 yang melegalkan berdirinya yayasan dan fakultas perintis di Semarang.',
+        modelType: 'portrait',
+        position: [9.6, 2.5, -5],
+        rotationY: -Math.PI / 2,
+        podiumPosition: [8.2, 0, -5],
+        podiumRotationY: -Math.PI / 2,
+      },
+      {
+        id: 'z3-naskah-peresmian',
+        title: 'Naskah Pidato Peresmian Diponegoro',
+        subtitle: 'Amanat Presiden Soekarno tentang Jiwa Kepahlawanan Diponegoro',
+        year: '1960',
+        category: 'Dokumen Penting',
+        description:
+          'Transkrip lengkap amanat Bung Karno yang menyerukan agar universitas ini menjadi banteng ilmu pengetahuan dan mengobarkan semangat juang Pangeran Diponegoro pantang menyerah.',
+        plaqueSummary:
+          'Amanat kenegaraan tertulis Presiden Ir. Soekarno yang menobatkan nama Diponegoro sebagai lambang keteladanan dan patriotisme universitas.',
+        modelType: 'portrait',
+        position: [9.6, 2.5, 0],
+        rotationY: -Math.PI / 2,
+        podiumPosition: [8.2, 0, 0],
+        podiumRotationY: -Math.PI / 2,
+      },
+      {
+        id: 'z3-foto-dies-pertama',
+        title: 'Foto Dokumentasi Dies Natalis Pertama (1958)',
+        subtitle: 'Peringatan Hari Lahir Perdana di Gedung Kesenian Sobokartti',
+        year: '1958',
+        category: 'Foto Sejarah',
+        description:
+          'Foto langka barisan wisudawan pertama dan dewan dosen dengan pakaian sipil resmi berfoto bersama di pelataran bersejarah kota Semarang.',
+        plaqueSummary:
+          'Arsip foto wisuda perdana dan peringatan Dies Natalis I Undip tahun 1958 bersama para tokoh perintis Jawa Tengah.',
+        modelType: 'portrait',
+        position: [9.6, 2.5, 5],
+        rotationY: -Math.PI / 2,
+        podiumPosition: [8.2, 0, 5],
+        podiumRotationY: -Math.PI / 2,
+      },
+      {
+        id: 'z3-arsip-audiovisual',
+        title: 'Koleksi Audio Bersejarah & Himne Undip',
+        subtitle: 'Pita Rekaman Pidato Asli & Partitur Himne Diponegoro (1962)',
+        year: '1962',
+        category: 'Koleksi Audiovisual',
+        description:
+          'Pita kaset gulung magnetik berisi rekaman audio pidato Bung Karno serta partitur not balok asli gubahan Himne Universitas Diponegoro karya komponis nasional.',
+        plaqueSummary:
+          'Pita rekaman suara autentik pidato Bung Karno 1960 dan partitur naskah asli Himne serta Mars Universitas Diponegoro.',
+        modelType: 'portrait',
+        position: [9.6, 2.5, 10],
+        rotationY: -Math.PI / 2,
+        podiumPosition: [8.2, 0, 10],
+        podiumRotationY: -Math.PI / 2,
+      },
+
+      // --- NORTH WALL (PRASASTI HERITAGE) ---
+      {
+        id: 'z3-prasasti-heritage',
+        title: 'Prasasti Pusaka Agung & Memorabilia Universitas Diponegoro',
+        subtitle: 'Khazanah Benda Bersejarah, Regalia Kepemimpinan, dan Dokumen Abadi',
+        year: '1957–1998',
+        category: 'Dokumen Penting',
+        description:
+          'Prasasti kehormatan yang mengabadikan benda pusaka dan naskah otentik yang melandasi marwah luhur berdirinya Universitas Diponegoro sebagai benteng kebudayaan dan kecendekiaan bangsa.',
+        plaqueSummary:
+          'Piagam Khazanah Pusaka Undip: Menghormati jasa para perintis dan mengabadikan regalia kepemimpinan universitas sepanjang masa.',
+        modelType: 'plaque',
+        position: [0, 2.8, -15.5],
+        rotationY: 0,
+        podiumPosition: [0, 0, -13.5],
+        podiumRotationY: 0,
+      },
+
+      // --- CENTERPIECE EXHIBIT ---
+      {
+        id: 'z3-meja-regalia',
+        title: 'Meja Pusaka Regalia & Tongkat Pedel Senat Emas',
+        subtitle: 'Koleksi Benda Upacara Kehormatan Tertinggi Universitas Diponegoro',
+        year: '1962',
+        category: 'Artefak Akademik',
+        description:
+          'Showcase kristal berlapis emas berisi Tongkat Pedel Senat berukir burung garuda dan keris Diponegoro, kalung medali rantai rasi kepemimpinan rektorat, dan cap segel kuno universitas.',
+        plaqueSummary:
+          'Meja Pusaka Regalia: Tongkat Pedel Senat bertatahkan emas, kalung medali kepemimpinan universitas, dan segel resmi Rektorat Undip.',
+        modelType: 'stand',
         position: [0, 0, 0],
-        podiumPosition: [0, 0, -2],
+        podiumPosition: [0, 0, 2.5],
+        podiumRotationY: 0,
+      },
+
+      // --- SIDE GALLERY VITRINES ---
+      {
+        id: 'z3-vitrine-konstitusi',
+        title: 'Vitrine Naskah Statuta Akademik Kuno (1961)',
+        subtitle: 'Buku Konstitusi Tata Kelola Universitas Pertama',
+        year: '1961',
+        category: 'Artefak Akademik',
+        description:
+          'Kitab statuta pertama yang merinci kewenangan rektor, kurikulum, dan tata tertib kehidupan kampus yang disahkan menteri PTIP.',
+        modelType: 'vitrine',
+        position: [-4.2, 0, -3.5],
+        rotationY: Math.PI / 2,
+        podiumPosition: [-4.2, 0, -2.1],
+        podiumRotationY: 0,
+      },
+      {
+        id: 'z3-vitrine-medali',
+        title: 'Vitrine Medali Diponegoro Kencana (1960)',
+        subtitle: 'Lencana Emas Kehormatan Penghargaan Jasa Akademik',
+        year: '1960',
+        category: 'Artefak Akademik',
+        description:
+          'Medali emas kehormatan tertinggi yang disematkan kepada para pendiri dan tokoh pembangun Universitas Diponegoro.',
+        modelType: 'vitrine',
+        position: [4.2, 0, -3.5],
+        rotationY: -Math.PI / 2,
+        podiumPosition: [4.2, 0, -2.1],
+        podiumRotationY: 0,
       },
     ],
   },
+
+  // --- ZONA 4: UNDIP TODAY ---
   {
     id: 'zona-4',
     code: 'ZONA 4',
     number: 4,
     title: 'Undip Today',
     subtitle: 'Kampus Modern, Riset Maritim & Prestasi Internasional',
-    themeColor: '#0284c7',
-    accentColor: '#f8fafc',
+    themeColor: '#0284c7', // Sapphire Blue
+    accentColor: '#38bdf8', // Neon Cyan
     summary:
-      'Wajah Universitas Diponegoro hari ini: kampus riset terkemuka berstatus PTN-BH, Rumah Sakit Nasional Diponegoro (RSND), perpustakaan digital modern, dan reputasi global.',
+      'Wajah modern Universitas Diponegoro hari ini: kampus riset terkemuka berstatus PTN-BH mandiri, laboratorium kelautan terpadu, RSND akreditasi paripurna, perpustakaan digital cerdas, dan peringkat 1 nasional penyerapan lulusan kerja.',
     curationPoints: [
-      'Kampus modern dan sarana pembelajaran digital',
-      'Laboratorium unggulan & pusat riset kelautan tropis',
-      'Perpustakaan pusat dan repository pengetahuan terbuka',
-      'Prestasi ranking internasional (QS World University Rankings)',
+      'Kampus modern: Ikon Gedung Rektorat Widya Puraya, SA MWA, dan Smart ICT Center',
+      'Laboratorium unggulan & Stasiun Riset Kelautan Tropis Teluk Awur Jepara',
+      'Rumah Sakit Nasional Diponegoro (RSND) bertaraf internasional',
+      'Perpustakaan pusat digital cerdas & Institutional Repository terbuka',
+      'Prestasi global: Top 500 World Class University & #1 Graduate Employability QS Ranking',
     ],
     exhibits: [
+      // --- WEST WALL (KAMPUS MODERN & RISET MARITIM) ---
       {
         id: 'z4-widya-puraya',
         title: 'Ikon Rektorat Gedung Widya Puraya',
-        subtitle: 'Simbol kecemerlangan ilmu dan marwah institusi',
+        subtitle: 'Arsitektur Joglo Modern Berkelanjutan di Poros Tembalang',
         year: '2024',
         category: 'Kampus Modern',
         description:
-          'Gedung Widya Puraya dengan arsitektur joglo modern menjulang di poros utama Tembalang, menaungi pusat layanan akademik terpadu dan kearsipan universitas.',
+          'Gedung Widya Puraya dengan arsitektur atap joglo bertingkat tiga yang megah dan berbalut kaca hemat energi menjadi simbol kepemimpinan akademik dan pusat koordinasi layanan terpadu universitas.',
         plaqueSummary:
-          'Ikon arsitektur rektorat Widya Puraya dan pusat komando layanan akademik terpadu Undip.',
+          'Simbol kecemerlangan dan marwah institusi. Gedung Rektorat Widya Puraya menaungi pusat komando layanan akademik terpadu berbasis digital.',
+        modelType: 'portrait',
+        position: [-9.6, 2.5, -10],
+        rotationY: Math.PI / 2,
+        podiumPosition: [-8.2, 0, -10],
+        podiumRotationY: Math.PI / 2,
+      },
+      {
+        id: 'z4-lab-terpadu',
+        title: 'Laboratorium Riset Terpadu Undip',
+        subtitle: 'Fasilitas Instrumentasi Sains Mutakhir & Sentra Analisis Nano',
+        year: '2023',
+        category: 'Laboratorium & Riset',
+        description:
+          'Gedung Laboratorium Terpadu menampung instrumen spektrometri massa, mikroskop elektron SEM/TEM, dan rekayasa biomaterial untuk melayani penelitian dosen, mahasiswa, serta mitra industri global.',
+        plaqueSummary:
+          'Sentra riset berstandar internasional yang menopang ribuan publikasi ilmiah bereputasi Scopus Q1 di bidang sains murni dan rekayasa.',
+        modelType: 'portrait',
+        position: [-9.6, 2.5, -5],
+        rotationY: Math.PI / 2,
+        podiumPosition: [-8.2, 0, -5],
+        podiumRotationY: Math.PI / 2,
+      },
+      {
+        id: 'z4-stasiun-jepara',
+        title: 'Stasiun Riset Kelautan Teluk Awur Jepara',
+        subtitle: 'Laboratorium Alam Konservasi Terumbu Karang & Oseanografi Tropis',
+        year: '2024',
+        category: 'Laboratorium & Riset',
+        description:
+          'Stasiun riset pantai seluas 20 hektar di Jepara yang dilengkapi fasilitas pembenihan laut (hatchery), dermaga kapal riset, dan laboratorium bioteknologi mikroalga pesisir utara Jawa.',
+        plaqueSummary:
+          'Episentrum riset oseanografi dan konservasi pesisir tropis Indonesia dengan sarana kapal riset bahari Diponegoro.',
+        modelType: 'portrait',
+        position: [-9.6, 2.5, 0],
+        rotationY: Math.PI / 2,
+        podiumPosition: [-8.2, 0, 0],
+        podiumRotationY: Math.PI / 2,
+      },
+      {
+        id: 'z4-rsnd',
+        title: 'Rumah Sakit Nasional Diponegoro (RSND)',
+        subtitle: 'Pusat Layanan Kesehatan Rujukan & Riset Kedokteran Tropis',
+        year: '2014–Sekarang',
+        category: 'Layanan Kesehatan',
+        description:
+          'RSND merupakan rumah sakit perguruan tinggi negeri berakreditasi Paripurna dengan fasilitas rawat inap modern, pusat rehabilitasi medik, laboratorium kateterisasi jantung, dan penanganan penyakit infeksi tropis.',
+        plaqueSummary:
+          'Pusat layanan kesehatan modern terintegrasi pendidikan klinis dokter spesialis dan pengabdian medis bagi masyarakat Jawa Tengah.',
+        modelType: 'portrait',
+        position: [-9.6, 2.5, 5],
+        rotationY: Math.PI / 2,
+        podiumPosition: [-8.2, 0, 5],
+        podiumRotationY: Math.PI / 2,
+      },
+      {
+        id: 'z4-ict-center',
+        title: 'Gedung Smart ICT Center & Komputasi',
+        subtitle: 'Tulang Punggung Infrastruktur Digital & Supercomputing Kampus',
+        year: '2022',
+        category: 'Kampus Modern',
+        description:
+          'Gedung Information and Communication Technology (ICT) mengelola jaringan internet fiber optik terpusat, server cloud mandiri, keamanan siber, dan sistem SSO layanan civitas akademika.',
+        plaqueSummary:
+          'Pusat kendali komputasi cerdas, server repository data terintegrasi, dan jaringan digital kampus masa kini.',
+        modelType: 'portrait',
+        position: [-9.6, 2.5, 10],
+        rotationY: Math.PI / 2,
+        podiumPosition: [-8.2, 0, 10],
+        podiumRotationY: Math.PI / 2,
+      },
+
+      // --- EAST WALL (PERPUSTAKAAN, PRESTASI GLOBAL & KEMANDIRIAN) ---
+      {
+        id: 'z4-perpustakaan-pusat',
+        title: 'UPT Perpustakaan & Undip Repository',
+        subtitle: 'Akses Pengetahuan Terbuka, E-Journal Dunia & Ruang Belajar Cerdas',
+        year: '2024',
+        category: 'Perpustakaan & Pengetahuan',
+        description:
+          'Gedung perpustakaan pusat 5 lantai menyediakan ratusan ribu koleksi cetak, akses jutaan jurnal ilmiah internasional Scopus/ScienceDirect, bilik riset multimedia, dan repositori karya ilmiah terbuka.',
+        plaqueSummary:
+          'Jantung peradaban ilmu pengetahuan kampus dengan fasilitas e-library interaktif, koleksi langka, dan repositori publikasi terbuka.',
+        modelType: 'portrait',
+        position: [9.6, 2.5, -10],
+        rotationY: -Math.PI / 2,
+        podiumPosition: [8.2, 0, -10],
+        podiumRotationY: -Math.PI / 2,
+      },
+      {
+        id: 'z4-qs-employability',
+        title: 'Peringkat 1 Nasional QS Graduate Employability',
+        subtitle: 'Universitas dengan Lulusan Tercepat Bekerja di Indonesia',
+        year: '2021–2024',
+        category: 'Prestasi Internasional',
+        description:
+          'Pencapaian prestisius di tingkat internasional: QS menempatkan Undip di peringkat #1 di Indonesia untuk indikator kecepatan alumni mendapatkan pekerjaan profesional berkualitas.',
+        plaqueSummary:
+          'Bukti kualitas unggul lulusan Undip yang paling diminati dunia industri, perusahaan multinasional, dan lembaga pemerintahan.',
+        modelType: 'portrait',
+        position: [9.6, 2.5, -5],
+        rotationY: -Math.PI / 2,
+        podiumPosition: [8.2, 0, -5],
+        podiumRotationY: -Math.PI / 2,
+      },
+      {
+        id: 'z4-wcu-ranking',
+        title: 'Top 500 World Class University (QS WCU)',
+        subtitle: 'Pengakuan Reputasi Akademik Global & Jejaring Riset Internasional',
+        year: '2023–2024',
+        category: 'Prestasi Internasional',
+        description:
+          'Lompatan peringkat universitas kelas dunia dalam pemeringkatan QS World University Rankings dan Times Higher Education (THE), mengukuhkan posisi Undip di kancah persaingan sains global.',
+        plaqueSummary:
+          'Pengakuan bergengsi reputasi internasional: masuk jajaran universitas elit dunia dengan ribuan mahasiswa asing dan riset kolaborasi 5 benua.',
+        modelType: 'portrait',
+        position: [9.6, 2.5, 0],
+        rotationY: -Math.PI / 2,
+        podiumPosition: [8.2, 0, 0],
+        podiumRotationY: -Math.PI / 2,
+      },
+      {
+        id: 'z4-transformasi-ptnbh',
+        title: 'Kemandirian Tata Kelola PTN-BH',
+        subtitle: 'Perguruan Tinggi Negeri Berbadan Hukum Mandiri & Akuntabel',
+        year: '2015–Sekarang',
+        category: 'Transformasi Kampus',
+        description:
+          'Status PTN-BH memberikan otonomi akademik, pengelolaan dana abadi, serta akselerasi pembukaan program studi bertaraf internasional yang fleksibel menjawab kebutuhan zaman.',
+        plaqueSummary:
+          'Tonggak kemandirian institusi dalam pengelolaan aset, riset terapan, dan kemitraan strategis global demi kemajuan bangsa.',
+        modelType: 'portrait',
+        position: [9.6, 2.5, 5],
+        rotationY: -Math.PI / 2,
+        podiumPosition: [8.2, 0, 5],
+        podiumRotationY: -Math.PI / 2,
+      },
+      {
+        id: 'z4-greenmetric',
+        title: 'Kampus Hijau Dunia (UI GreenMetric)',
+        subtitle: 'Pengelolaan Energi Bersih, Hutan Kota, dan Konservasi Waduk Edukasi',
+        year: '2020–2024',
+        category: 'Prestasi Internasional',
+        description:
+          'Komitmen terhadap kelestarian bumi diwujudkan lewat tata kelola kampus hijau berstandar UI GreenMetric World University Rankings: panel surya terbarukan, pengelolaan zero waste, dan danau resapan air.',
+        plaqueSummary:
+          'Peringkat teratas kampus lestari ramah lingkungan dengan ruang terbuka hijau asri, jembatan Sikatak, dan ekosistem kampus berkelanjutan.',
+        modelType: 'portrait',
+        position: [9.6, 2.5, 10],
+        rotationY: -Math.PI / 2,
+        podiumPosition: [8.2, 0, 10],
+        podiumRotationY: -Math.PI / 2,
+      },
+
+      // --- NORTH WALL (PRASASTI UNDIP TODAY) ---
+      {
+        id: 'z4-prasasti-modern',
+        title: 'Prasasti Capaian Undip Menuju World Class University',
+        subtitle: 'Rekam Jejak Keunggulan Riset Maritim, Inovasi PTN-BH, dan Reputasi Global',
+        year: '2015–Sekarang',
+        category: 'Prestasi Internasional',
+        description:
+          'Piagam agung yang mendokumentasikan pencapaian gemilang Universitas Diponegoro di era modern sebagai pusat riset maritim terkemuka, penghasil lulusan berdaya saing global, dan pelopor kampus lestari.',
+        plaqueSummary:
+          'Piagam Keunggulan Undip Modern: Reputasi global World Class University, riset maritim terintegrasi, dan dedikasi bagi kemakmuran nusantara.',
         modelType: 'plaque',
         position: [0, 2.8, -15.5],
+        rotationY: 0,
         podiumPosition: [0, 0, -13.5],
+        podiumRotationY: 0,
+      },
+
+      // --- CENTERPIECE EXHIBIT ---
+      {
+        id: 'z4-monumen-globe-wcu',
+        title: 'Monumen Widya Puraya & Globe Prestasi Dunia (Top 500 WCU)',
+        subtitle: 'Simbol Keunggulan Global, Reputasi Internasional & PTN-BH Mandiri',
+        year: '2024',
+        category: 'Prestasi Internasional',
+        description:
+          'Monumen modern menampilkan Gedung Widya Puraya beratap joglo modern dengan cincin orbital emas bercahaya yang berputar, melambangkan capaian Undip menembus Top 500 World Class University.',
+        plaqueSummary:
+          'Monumen Widya Puraya & Globe Prestasi Dunia: Representasi kemajuan kampus modern, riset maritim terkemuka, dan prestasi ranking #1 nasional QS Employability.',
+        modelType: 'stand',
+        position: [0, 0, 0],
+        podiumPosition: [0, 0, 2.5],
+        podiumRotationY: 0,
+      },
+
+      // --- SIDE GALLERY VITRINES ---
+      {
+        id: 'z4-vitrine-trophy-abet',
+        title: 'Vitrine Trophy Akreditasi Internasional ABET & ASIIN',
+        subtitle: 'Standar Akreditasi Rekayasa Sains Jerman & Amerika Serikat',
+        year: '2023',
+        category: 'Prestasi Internasional',
+        description:
+          'Piala plakat kristal akreditasi internasional ABET (USA) dan ASIIN (Jerman) yang disematkan kepada program studi unggulan Fakultas Teknik dan Sains Undip.',
+        modelType: 'vitrine',
+        position: [-4.2, 0, -3.5],
+        rotationY: Math.PI / 2,
+        podiumPosition: [-4.2, 0, -2.1],
+        podiumRotationY: 0,
+      },
+      {
+        id: 'z4-vitrine-arsip-digital',
+        title: 'Vitrine Terminal E-Repository & Digital Twin',
+        subtitle: 'Sistem Informasi Kearsipan & Pengetahuan Terbuka Berbasis Cloud',
+        year: '2024',
+        category: 'Kampus Modern',
+        description:
+          'Model terminal cerdas penyimpan repositori digital universitas yang menaungi lebih dari 100.000 karya ilmiah dan dokumen historis terdigitalisasi.',
+        modelType: 'vitrine',
+        position: [4.2, 0, -3.5],
+        rotationY: -Math.PI / 2,
+        podiumPosition: [4.2, 0, -2.1],
+        podiumRotationY: 0,
       },
     ],
   },
