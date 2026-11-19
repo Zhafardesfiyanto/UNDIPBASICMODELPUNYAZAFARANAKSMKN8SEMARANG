@@ -142,17 +142,17 @@ export function TembalangCampusMaket({
         </mesh>
 
         {/* Ring Road (Jalan Lingkar Kampus Tembalang - Dark Asphalt) */}
-        <mesh position={[0, 0.105, 0]}>
+        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.105, 0]}>
           <ringGeometry args={[1.25, 1.45, 32]} />
           <meshStandardMaterial color="#334155" roughness={0.7} />
         </mesh>
         {/* Secondary access roads */}
-        <mesh position={[0, 0.104, 0.8]}>
-          <boxGeometry args={[0.2, 0.01, 1.6]} />
+        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.104, 0.8]}>
+          <planeGeometry args={[0.2, 1.6]} />
           <meshStandardMaterial color="#334155" roughness={0.7} />
         </mesh>
-        <mesh position={[0, 0.104, -1.0]}>
-          <boxGeometry args={[0.2, 0.01, 1.2]} />
+        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.104, -1.0]}>
+          <planeGeometry args={[0.2, 1.2]} />
           <meshStandardMaterial color="#334155" roughness={0.7} />
         </mesh>
 
@@ -169,7 +169,7 @@ export function TembalangCampusMaket({
             />
           </mesh>
           {/* Stone Shoreline */}
-          <mesh position={[0, 0.01, 0]}>
+          <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.005, 0]}>
             <ringGeometry args={[0.55, 0.62, 24]} />
             <meshStandardMaterial color="#78716c" roughness={0.9} />
           </mesh>
@@ -297,30 +297,30 @@ export function TembalangCampusMaket({
         {/* =========================================================
             6. PROTECTIVE ACRYLIC / GLASS SHOWCASE COVER
             ========================================================= */}
-        <group position={[0, 0.6, 0]}>
+        <group position={[0, 0.55, 0]}>
           <mesh>
-            <boxGeometry args={[3.6, 1.15, 3.6]} />
+            <boxGeometry args={[3.6, 1.05, 3.6]} />
             <meshStandardMaterial
-              color="#e0f2fe"
+              color="#f8fafc"
               transparent
-              opacity={0.16}
+              opacity={0.12}
               roughness={0.05}
-              metalness={0.9}
+              metalness={0.1}
               depthWrite={false}
             />
           </mesh>
-          {/* Brass Corner Brackets for Glass Case */}
+          {/* Subtle Brass Corner Rails */}
           {[-1.8, 1.8].map((cx) =>
             [-1.8, 1.8].map((cz) => (
               <mesh key={`corner-${cx}-${cz}`} position={[cx, 0, cz]}>
-                <boxGeometry args={[0.04, 1.16, 0.04]} />
-                <meshStandardMaterial color="#d4af37" metalness={0.9} roughness={0.2} />
+                <boxGeometry args={[0.025, 1.05, 0.025]} />
+                <meshStandardMaterial color="#d4af37" metalness={0.85} roughness={0.2} />
               </mesh>
             )),
           )}
-          {/* Top Brass Rim */}
-          <mesh position={[0, 0.58, 0]}>
-            <boxGeometry args={[3.64, 0.03, 3.64]} />
+          {/* Top Thin Brass Rim */}
+          <mesh position={[0, 0.53, 0]}>
+            <boxGeometry args={[3.64, 0.02, 3.64]} />
             <meshStandardMaterial color="#d4af37" metalness={0.85} roughness={0.2} />
           </mesh>
         </group>

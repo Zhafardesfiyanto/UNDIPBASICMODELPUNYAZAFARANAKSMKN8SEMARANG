@@ -229,7 +229,7 @@ export const MUSEUM_ZONES: MuseumZone[] = [
         podiumRotationY: 0,
       },
 
-      // --- CENTER AISLE VITRINES ---
+      // --- SIDE GALLERY VITRINES (SIDES OF ROOM TO KEEP CENTER AISLE OPEN) ---
       {
         id: 'z1-vitrine-jubah',
         title: 'Vitrine Jubah Kehormatan & Kalung Medali Rektorat',
@@ -239,8 +239,9 @@ export const MUSEUM_ZONES: MuseumZone[] = [
         description:
           'Jubah toga beludru hitam berkerah satin emas serta kalung medali lambang Universitas Diponegoro yang disematkan kepada setiap Rektor Undip pada upacara pelantikan dan wisuda.',
         modelType: 'vitrine',
-        position: [0, 0, -5],
-        podiumPosition: [0, 0, -3.4],
+        position: [-4.2, 0, -3.5],
+        rotationY: Math.PI / 2,
+        podiumPosition: [-4.2, 0, -2.1],
         podiumRotationY: 0,
       },
       {
@@ -252,9 +253,10 @@ export const MUSEUM_ZONES: MuseumZone[] = [
         description:
           'Salinan akta notaris pembentukan Yayasan Universitas Semarang yang diprakarsai oleh para tokoh masyarakat Jawa Tengah sebagai cikal bakal kelahiran Universitas Diponegoro.',
         modelType: 'vitrine',
-        position: [0, 0, 5],
-        podiumPosition: [0, 0, 6.6],
-        podiumRotationY: Math.PI,
+        position: [4.2, 0, -3.5],
+        rotationY: -Math.PI / 2,
+        podiumPosition: [4.2, 0, -2.1],
+        podiumRotationY: 0,
       },
     ],
   },
@@ -459,7 +461,24 @@ export const MUSEUM_ZONES: MuseumZone[] = [
         podiumRotationY: 0,
       },
 
-      // --- CENTER AISLE VITRINES ---
+      // --- CENTERPIECE EXHIBIT (PODIUM IN FRONT OF THE 3D MAKET) ---
+      {
+        id: 'z2-maket-tembalang',
+        title: 'Maket Masterplan Kampus Tembalang',
+        subtitle: 'Kota Mandiri Akademik 180 Hektar Ramah Lingkungan',
+        year: '1985–Sekarang',
+        category: 'Transformasi Kampus',
+        description:
+          'Maket 3D kawasan kampus terpadu Tembalang seluas 180 hektar di perbukitan selatan Semarang. Menampilkan gedung rektorat Widya Puraya beratap joglo modern bertingkat, danau resapan air, komplek 11 fakultas modern, gedung laboratorium riset, serta infrastruktur kampus hijau lestari berstandar UI GreenMetric.',
+        plaqueSummary:
+          'Maket 3D Masterplan Kampus Terpadu Tembalang (180 Ha): Gedung rektorat Widya Puraya, danau resapan, 11 fakultas, dan ruang terbuka hijau lestari berstandar UI GreenMetric.',
+        modelType: 'stand',
+        position: [0, 0, 0],
+        podiumPosition: [0, 0, 2.5],
+        podiumRotationY: 0,
+      },
+
+      // --- SIDE GALLERY VITRINES (SIDES OF ROOM TO KEEP CENTER AISLE OPEN) ---
       {
         id: 'z2-vitrine-pip',
         title: 'Vitrine Naskah Pola Ilmiah Pokok (PIP) 1974',
@@ -469,8 +488,9 @@ export const MUSEUM_ZONES: MuseumZone[] = [
         description:
           'Buku pedoman cetakan pertama Pola Ilmiah Pokok (PIP) pengembangan wilayah pantai yang dirumuskan oleh senat guru besar Undip tahun 1974 sebagai identitas pembeda dengan universitas lain di Indonesia.',
         modelType: 'vitrine',
-        position: [0, 0, -6],
-        podiumPosition: [0, 0, -4.4],
+        position: [-4.2, 0, -3.5],
+        rotationY: Math.PI / 2,
+        podiumPosition: [-4.2, 0, -2.1],
         podiumRotationY: 0,
       },
       {
@@ -482,9 +502,10 @@ export const MUSEUM_ZONES: MuseumZone[] = [
         description:
           'Lembaran blueprint gambar kerja arsitektur kawasan kampus terpadu Tembalang rancangan para arsitek Fakultas Teknik Undip bersama para pakar tata kota nasional era Presiden Soeharto.',
         modelType: 'vitrine',
-        position: [0, 0, 6],
-        podiumPosition: [0, 0, 7.6],
-        podiumRotationY: Math.PI,
+        position: [4.2, 0, -3.5],
+        rotationY: -Math.PI / 2,
+        podiumPosition: [4.2, 0, -2.1],
+        podiumRotationY: 0,
       },
     ],
   },
