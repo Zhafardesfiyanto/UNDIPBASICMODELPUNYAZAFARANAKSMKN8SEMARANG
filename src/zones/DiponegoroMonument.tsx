@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
+import { Billboard } from '@react-three/drei'
 import * as THREE from 'three'
 
 interface DiponegoroMonumentProps {
@@ -13,7 +14,6 @@ export function DiponegoroMonument({
   const [logoTexture, setLogoTexture] = useState<THREE.Texture | null>(null)
   const [statueTexture, setStatueTexture] = useState<THREE.Texture | null>(null)
   const [isHovered, setIsHovered] = useState(false)
-  const monumentRef = useRef<THREE.Group>(null)
 
   useEffect(() => {
     const loader = new THREE.TextureLoader()
@@ -34,7 +34,6 @@ export function DiponegoroMonument({
 
   return (
     <group
-      ref={monumentRef}
       position={position}
       onClick={(e) => {
         e.stopPropagation()
@@ -146,18 +145,19 @@ export function DiponegoroMonument({
           Sketchfab iframe dibuka via onSelect() overlay di atas canvas.
           ========================================================= */}
       {statueTexture && (
-        // Patung berdiri tegak di atas pedestal, menghadap ke depan (+Z)
-        // posisi Y = 1.8 (atas pedestal) + setengah tinggi gambar (3.0/2=1.5) = 3.3
-        <mesh position={[0, 3.3, 0]}>
-          <planeGeometry args={[2.6, 3.4]} />
-          <meshBasicMaterial
-            map={statueTexture}
-            transparent
-            alphaTest={0.08}
-            side={THREE.DoubleSide}
-            depthWrite={false}
-          />
-        </mesh>
+        // Billboard = selalu menghadap kamera dari sudut manapun
+        // position Y = 1.8 (atas pedestal) + 1.6 (setengah tinggi) = 3.4
+        <Billboard position={[0, 3.4, 0]} follow={true} lockX={false} lockY={true} lockZ={false}>
+          <mesh>
+            <planeGeometry args={[2.8, 3.6]} />
+            <meshBasicMaterial
+              map={statueTexture}
+              transparent
+              alphaTest={0.08}
+              depthWrite={false}
+            />
+          </mesh>
+        </Billboard>
       )}
 
       {/* =========================================================
