@@ -6,35 +6,29 @@ interface DiponegoroMonumentProps {
   onSelect?: () => void
 }
 
-/**
- * Monumen Pangeran Diponegoro Menunggang Kuda
- * Menggunakan cut-out transparent 3D beresolusi tinggi murni dari foto referensi:
- * - Kuda jingkrak hitam legam, Pangeran Diponegoro berkeris dan berserban putih.
- * - Tanpa bentuk-bentuk silinder/robot yang merusak estetika.
- * - Berdiri di atas pedestal marmer hitam megah dengan Logo Undip transparan dan lampu sorot museum.
- */
 export function DiponegoroMonument({
   position = [0, 0, 0],
   onSelect,
 }: DiponegoroMonumentProps) {
-  const [statueTexture, setStatueTexture] = useState<THREE.Texture | null>(null)
   const [logoTexture, setLogoTexture] = useState<THREE.Texture | null>(null)
+  const [statueTexture, setStatueTexture] = useState<THREE.Texture | null>(null)
   const [isHovered, setIsHovered] = useState(false)
   const monumentRef = useRef<THREE.Group>(null)
 
   useEffect(() => {
     const loader = new THREE.TextureLoader()
 
+    loader.load('/brand/logo_undip.png', (tex) => {
+      tex.colorSpace = THREE.SRGBColorSpace
+      setLogoTexture(tex)
+    })
+
+    // Patung Diponegoro PNG — single upright billboard (no cross-planes)
     loader.load('/brand/patung_diponegoro.png', (tex) => {
       tex.colorSpace = THREE.SRGBColorSpace
       tex.generateMipmaps = true
       tex.minFilter = THREE.LinearMipmapLinearFilter
       setStatueTexture(tex)
-    })
-
-    loader.load('/brand/logo_undip.png', (tex) => {
-      tex.colorSpace = THREE.SRGBColorSpace
-      setLogoTexture(tex)
     })
   }, [])
 
@@ -64,24 +58,22 @@ export function DiponegoroMonument({
         <boxGeometry args={[4.2, 0.36, 4.2]} />
         <meshStandardMaterial color="#081020" roughness={0.3} metalness={0.2} />
       </mesh>
-      {/* Gold Trim 1 */}
       <mesh position={[0, 0.37, 0]}>
         <boxGeometry args={[4.24, 0.04, 4.24]} />
         <meshStandardMaterial color="#d4af37" metalness={0.85} roughness={0.25} />
       </mesh>
 
-      {/* Base Step 2 (Middle Tier) */}
+      {/* Base Step 2 */}
       <mesh position={[0, 0.65, 0]} castShadow receiveShadow>
         <boxGeometry args={[3.6, 0.55, 3.6]} />
         <meshStandardMaterial color="#0b162c" roughness={0.25} metalness={0.2} />
       </mesh>
-      {/* Gold Trim 2 */}
       <mesh position={[0, 0.94, 0]}>
         <boxGeometry args={[3.64, 0.04, 3.64]} />
         <meshStandardMaterial color="#d4af37" metalness={0.85} roughness={0.25} />
       </mesh>
 
-      {/* Main Pedestal Block (Deep Royal Navy Obsidian Marble — Never turns brown) */}
+      {/* Main Pedestal Block */}
       <mesh position={[0, 1.35, 0]} castShadow receiveShadow>
         <boxGeometry args={[3.0, 0.8, 3.0]} />
         <meshStandardMaterial
@@ -92,60 +84,51 @@ export function DiponegoroMonument({
           emissiveIntensity={isHovered ? 0.3 : 0}
         />
       </mesh>
-      {/* Gold Top Rim */}
       <mesh position={[0, 1.77, 0]}>
         <boxGeometry args={[3.15, 0.06, 3.15]} />
         <meshStandardMaterial color="#d4af37" metalness={0.88} roughness={0.2} />
       </mesh>
 
       {/* =========================================================
-          2. LOGO UNDIP (HIGH CONTRAST GILDED NAVY EMBLEM MEDALLION)
-          Framed on an official Undip Navy & 24k Gold backing plaque
-          so it NEVER blends into the pedestal or background.
+          2. LOGO UNDIP MEDALLION — Gilded Navy Plaque
           ========================================================= */}
-      {/* Front Face Emblem Plaque */}
+      {/* Front Face */}
       <group position={[0, 1.35, 1.51]}>
-        {/* Navy Shield Background */}
-        <mesh position={[0, 0, 0.005]}>
-          <boxGeometry args={[0.82, 1.02, 0.012]} />
-          <meshStandardMaterial color="#0b1730" roughness={0.3} metalness={0.35} />
-        </mesh>
-        {/* Polished Gold Beveled Trim */}
         <mesh position={[0, 0, 0.003]}>
           <boxGeometry args={[0.86, 1.06, 0.008]} />
           <meshStandardMaterial color="#d4af37" metalness={0.9} roughness={0.18} />
         </mesh>
-        {/* Logo Undip with crisp white text & gold crest */}
+        <mesh position={[0, 0, 0.011]}>
+          <boxGeometry args={[0.80, 1.00, 0.008]} />
+          <meshStandardMaterial color="#0b1730" roughness={0.3} metalness={0.35} />
+        </mesh>
         {logoTexture && (
-          <mesh position={[0, 0, 0.016]}>
+          <mesh position={[0, 0, 0.018]}>
             <planeGeometry args={[0.74, 0.94]} />
             <meshBasicMaterial map={logoTexture} transparent alphaTest={0.05} />
           </mesh>
         )}
       </group>
 
-      {/* Back Face Emblem Plaque */}
+      {/* Back Face */}
       <group position={[0, 1.35, -1.51]} rotation={[0, Math.PI, 0]}>
-        {/* Navy Shield Background */}
-        <mesh position={[0, 0, 0.005]}>
-          <boxGeometry args={[0.82, 1.02, 0.012]} />
-          <meshStandardMaterial color="#0b1730" roughness={0.3} metalness={0.35} />
-        </mesh>
-        {/* Polished Gold Beveled Trim */}
         <mesh position={[0, 0, 0.003]}>
           <boxGeometry args={[0.86, 1.06, 0.008]} />
           <meshStandardMaterial color="#d4af37" metalness={0.9} roughness={0.18} />
         </mesh>
-        {/* Logo Undip */}
+        <mesh position={[0, 0, 0.011]}>
+          <boxGeometry args={[0.80, 1.00, 0.008]} />
+          <meshStandardMaterial color="#0b1730" roughness={0.3} metalness={0.35} />
+        </mesh>
         {logoTexture && (
-          <mesh position={[0, 0, 0.016]}>
+          <mesh position={[0, 0, 0.018]}>
             <planeGeometry args={[0.74, 0.94]} />
             <meshBasicMaterial map={logoTexture} transparent alphaTest={0.05} />
           </mesh>
         )}
       </group>
 
-      {/* Brass Plaque on Front Step */}
+      {/* Brass Name Plaque on Front Step */}
       <group position={[0, 0.65, 1.82]}>
         <mesh castShadow>
           <boxGeometry args={[2.6, 0.34, 0.02]} />
@@ -158,61 +141,47 @@ export function DiponegoroMonument({
       </group>
 
       {/* =========================================================
-          3. STATUE: PANGERAN DIPONEGORO MENUNGGANG KUDA
-          High-res silhouette with true transparency, resting on pedestal.
-          Floor shadow completely eliminated.
+          3. PATUNG DIPONEGORO — Single upright billboard PNG
+          Satu plane tegak lurus menghadap depan, tidak ada cross-planes.
+          Sketchfab iframe dibuka via onSelect() overlay di atas canvas.
           ========================================================= */}
       {statueTexture && (
-        <group position={[0, 3.4, 0]}>
-          {/* Main Front-Facing Plane (Seen when entering the gallery) */}
-          <mesh position={[0, 0, 0]}>
-            <planeGeometry args={[2.25, 3.2]} />
-            <meshStandardMaterial
-              map={statueTexture}
-              transparent
-              alphaTest={0.12}
-              side={THREE.DoubleSide}
-              roughness={0.4}
-            />
-          </mesh>
-
-          {/* Perpendicular Side-Facing Plane (Seen from side galleries) */}
-          <mesh position={[0, 0, 0]} rotation={[0, Math.PI / 2, 0]}>
-            <planeGeometry args={[2.25, 3.2]} />
-            <meshStandardMaterial
-              map={statueTexture}
-              transparent
-              alphaTest={0.12}
-              side={THREE.DoubleSide}
-              roughness={0.4}
-            />
-          </mesh>
-        </group>
+        // Patung berdiri tegak di atas pedestal, menghadap ke depan (+Z)
+        // posisi Y = 1.8 (atas pedestal) + setengah tinggi gambar (3.0/2=1.5) = 3.3
+        <mesh position={[0, 3.3, 0]}>
+          <planeGeometry args={[2.6, 3.4]} />
+          <meshBasicMaterial
+            map={statueTexture}
+            transparent
+            alphaTest={0.08}
+            side={THREE.DoubleSide}
+            depthWrite={false}
+          />
+        </mesh>
       )}
 
       {/* =========================================================
-          4. MUSEUM SPOTLIGHTS ILLUMINATING THE STATUE
+          4. SPOTLIGHTS
           ========================================================= */}
       <spotLight
-        position={[0, 5.8, 3.2]}
-        target-position={[0, 3.2, 0]}
-        intensity={3.8}
-        angle={0.55}
-        penumbra={0.3}
+        position={[0, 5.8, 3.0]}
+        target-position={[0, 3.0, 0]}
+        intensity={4.5}
+        angle={0.5}
+        penumbra={0.35}
         color="#fffcf5"
         castShadow
       />
       <spotLight
-        position={[0, 5.8, -3.2]}
-        target-position={[0, 3.2, 0]}
-        intensity={2.8}
-        angle={0.55}
-        penumbra={0.3}
+        position={[0, 5.8, -3.0]}
+        target-position={[0, 3.0, 0]}
+        intensity={3.0}
+        angle={0.5}
+        penumbra={0.35}
         color="#fffcf5"
         castShadow
       />
-      {/* Neutral Crisp Museum Plinth Daylight (Replaced warm yellow with neutral white) */}
-      <pointLight position={[0, 2.8, 0]} color="#fffcf5" intensity={0.9} distance={6} />
+      <pointLight position={[0, 3.2, 0]} color="#fffcf5" intensity={1.0} distance={7} />
     </group>
   )
 }

@@ -125,78 +125,62 @@ export function MuseumPodiumStand({ item, onSelect, isSelected }: MuseumPodiumSt
         document.body.style.cursor = ''
       }}
     >
-      {/* 1. Heavy Cast-Iron / Brass Round Base */}
+      {/* 1. Base disc */}
       <mesh position={[0, 0.02, 0]} castShadow receiveShadow>
         <cylinderGeometry args={[0.22, 0.25, 0.04, 24]} />
         <meshStandardMaterial color="#1a2333" metalness={0.8} roughness={0.3} />
       </mesh>
-
-      {/* Gold Trim Ring on Base */}
       <mesh position={[0, 0.042, 0]}>
         <ringGeometry args={[0.18, 0.21, 24]} />
         <meshStandardMaterial color="#d4af37" metalness={0.85} roughness={0.25} />
       </mesh>
 
-      {/* 2. Vertical Upright Stem — Placed cleanly BEHIND the reading surface */}
-      <mesh position={[0, 0.46, -0.12]} castShadow>
-        <cylinderGeometry args={[0.025, 0.03, 0.84, 16]} />
-        <meshStandardMaterial color="#1e293b" metalness={0.85} roughness={0.25} />
+      {/* 2. Vertical stem — behind and below the tray, fully hidden from front */}
+      <mesh position={[0, 0.50, 0]} castShadow>
+        <cylinderGeometry args={[0.025, 0.03, 0.96, 16]} />
+        <meshStandardMaterial color="#1a2333" metalness={0.85} roughness={0.25} />
       </mesh>
 
-      {/* Angled Neck Connector joining stem to tray back */}
-      <mesh position={[0, 0.90, -0.06]} rotation={[-0.45, 0, 0]}>
-        <cylinderGeometry args={[0.025, 0.025, 0.16, 16]} />
-        <meshStandardMaterial color="#c59b27" metalness={0.85} roughness={0.25} />
-      </mesh>
-
-      {/* Rear Mounting Hub Plate (Behind the tray) */}
-      <mesh position={[0, 0.98, -0.025]} rotation={[0.42, 0, 0]}>
-        <boxGeometry args={[0.16, 0.16, 0.02]} />
-        <meshStandardMaterial color="#1e293b" metalness={0.8} roughness={0.3} />
-      </mesh>
-
-      {/* 3. Angled Head Bracket (Facing toward visitor, 100% unobstructed) */}
-      <group position={[0, 0.98, 0]} rotation={[0.42, 0, 0]}>
-        {/* Backing Tray Board */}
-        <mesh position={[0, 0, -0.012]} castShadow receiveShadow>
-          <boxGeometry args={[0.74, 0.48, 0.02]} />
-          <meshStandardMaterial
-            color="#0f2347"
-            metalness={0.5}
-            roughness={0.35}
-          />
+      {/* 3. Angled reading tray — tilted toward the visitor (rotation X = -0.42 rad ≈ 24°)
+              Positive X rotation tips the top of the board AWAY from visitor (reading angle).
+              The plaque text faces FORWARD (+Z direction = toward visitor). */}
+      <group position={[0, 1.02, 0.08]} rotation={[-0.4, 0, 0]}>
+        {/* Dark navy backing board */}
+        <mesh position={[0, 0, 0]} castShadow receiveShadow>
+          <boxGeometry args={[0.74, 0.50, 0.025]} />
+          <meshStandardMaterial color="#0f2347" metalness={0.4} roughness={0.4} />
         </mesh>
 
-        {/* Gilded Bezel Frame with hover highlight */}
-        <mesh position={[0, 0, 0.002]}>
-          <boxGeometry args={[0.72, 0.46, 0.006]} />
+        {/* Gold bezel frame — slightly in front of board */}
+        <mesh position={[0, 0, 0.014]}>
+          <boxGeometry args={[0.72, 0.48, 0.006]} />
           <meshStandardMaterial
             color={isSelected ? '#38bdf8' : isHovered ? '#ffd700' : '#d4af37'}
-            metalness={0.85}
-            roughness={0.2}
-            emissive={isHovered ? '#d4af37' : '#000000'}
-            emissiveIntensity={isHovered ? 0.25 : 0}
+            metalness={0.88}
+            roughness={0.18}
+            emissive={isHovered ? '#c59b27' : '#000000'}
+            emissiveIntensity={isHovered ? 0.3 : 0}
           />
         </mesh>
 
-        {/* Printed Plaque Surface Texture */}
-        <mesh position={[0, 0, 0.008]}>
-          <planeGeometry args={[0.7, 0.44]} />
-          <meshStandardMaterial map={texture} roughness={0.65} />
+        {/* Plaque texture — rendered IN FRONT of the gold frame */}
+        <mesh position={[0, 0, 0.022]}>
+          <planeGeometry args={[0.68, 0.44]} />
+          <meshStandardMaterial map={texture} roughness={0.7} />
         </mesh>
 
-        {/* Reading Lip Shelf at the bottom of the tray */}
-        <mesh position={[0, -0.23, 0.016]}>
-          <boxGeometry args={[0.74, 0.02, 0.03]} />
-          <meshStandardMaterial color="#d4af37" metalness={0.8} />
+        {/* Reading lip (bottom shelf) */}
+        <mesh position={[0, -0.25, 0.022]}>
+          <boxGeometry args={[0.74, 0.022, 0.035]} />
+          <meshStandardMaterial color="#d4af37" metalness={0.82} roughness={0.2} />
         </mesh>
       </group>
 
-      {/* Subtle Warm Downlight highlighting the stand */}
+      {/* Warm accent light */}
       <pointLight
-        position={[0, 1.4, 0.25]}
+        position={[0, 1.4, 0.3]}
         color="#fff8ed"
-        intensity={isHovered ? 1.6 : 0.9}
+        intensity={isHovered ? 1.8 : 1.0}
         distance={2.5}
       />
     </group>

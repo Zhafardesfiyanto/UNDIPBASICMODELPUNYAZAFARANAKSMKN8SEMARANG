@@ -1,10 +1,11 @@
-import { Suspense, useState } from 'react'
+import { Suspense, useState, useEffect } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { PerspectiveCamera } from '@react-three/drei'
 import { MUSEUM_ZONES, type ExhibitItem } from './types'
 import { MuseumRoomEnvironment } from './MuseumRoomEnvironment'
 import { MuseumExhibitsRenderer } from './MuseumExhibitsRenderer'
 import { DiponegoroMonument } from './DiponegoroMonument'
+import { DiponegoroViewer } from './DiponegoroViewer'
 import { ModernControls } from '../modern/ModernControls'
 import { ExhibitDetailPanel } from './ExhibitDetailPanel'
 import './museum.css'
@@ -16,9 +17,20 @@ interface MuseumZoneSceneProps {
 
 export function MuseumZoneScene({ currentZoneId, onSwitchZone }: MuseumZoneSceneProps) {
   const [selectedExhibit, setSelectedExhibit] = useState<ExhibitItem | null>(null)
+  const [isPointerLocked, setIsPointerLocked] = useState(false)
+  const [showDiponegoroViewer, setShowDiponegoroViewer] = useState(false)
 
   const activeZone =
     MUSEUM_ZONES.find((z) => z.id === currentZoneId) ?? MUSEUM_ZONES[0]
+
+  // Track pointer lock state for crosshair visibility
+  useEffect(() => {
+    const handleLockChange = () => {
+      setIsPointerLocked(document.pointerLockElement !== null)
+    }
+    document.addEventListener('pointerlockchange', handleLockChange)
+    return () => document.removeEventListener('pointerlockchange', handleLockChange)
+  }, [])
 
   return (
     <div className="museum-zone-root">
@@ -52,6 +64,15 @@ export function MuseumZoneScene({ currentZoneId, onSwitchZone }: MuseumZoneScene
         </nav>
       </header>
 
+      {/* ✦ CROSSHAIR — hanya tampil saat pointer lock aktif (klik kiri untuk lock) */}
+      {isPointerLocked && !selectedExhibit && (
+        <div className="museum-crosshair" aria-hidden="true">
+          <span className="ch-h" />
+          <span className="ch-v" />
+          <span className="ch-dot" />
+        </div>
+      )}
+
       {/* Full 3D Realistic Museum Canvas */}
       <Canvas
         shadows
@@ -84,6 +105,8 @@ export function MuseumZoneScene({ currentZoneId, onSwitchZone }: MuseumZoneScene
             <DiponegoroMonument
               position={[0, 0, 0]}
               onSelect={() => {
+                setShowDiponegoroViewer(true)
+                // Also set exhibit for info panel
                 setSelectedExhibit({
                   id: 'z1-monumen-diponegoro',
                   title: 'Monumen Pangeran Diponegoro Menunggang Kuda',
@@ -117,15 +140,24 @@ export function MuseumZoneScene({ currentZoneId, onSwitchZone }: MuseumZoneScene
         <span>
           <kbd>W</kbd> <kbd>A</kbd> <kbd>S</kbd> <kbd>D</kbd> jalan
         </span>
-        <span>arahkan mouse untuk melihat</span>
+        <span>klik kiri untuk melihat (crosshair muncul)</span>
         <span>klik patung / lukisan / podium untuk membaca info</span>
         <span>gunakan navigasi zona di atas untuk jelajah ruangan</span>
       </div>
 
+      {/* Sketchfab 3D Viewer Overlay — Pangeran Diponegoro */}
+      <DiponegoroViewer
+        isOpen={showDiponegoroViewer}
+        onClose={() => setShowDiponegoroViewer(false)}
+      />
+
       {/* Exhibit Detail Panel Modal */}
       <ExhibitDetailPanel
         exhibit={selectedExhibit}
-        onClose={() => setSelectedExhibit(null)}
+        onClose={() => {
+          setSelectedExhibit(null)
+          setShowDiponegoroViewer(false)
+        }}
       />
     </div>
   )
