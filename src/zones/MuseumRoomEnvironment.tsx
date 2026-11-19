@@ -1,7 +1,7 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
-import { useFrame } from '@react-three/fiber'
+import { useEffect, useMemo, useState } from 'react'
 import * as THREE from 'three'
 import type { MuseumZone } from './types'
+import { PressurePlate } from './PressurePlate'
 
 interface MuseumRoomEnvironmentProps {
   zone: MuseumZone
@@ -53,8 +53,53 @@ function createMuseumParquetTexture(): THREE.CanvasTexture {
   return texture
 }
 
+/** Procedural Gilded Zone Header Plaque Texture on North Wall */
+function createZoneHeaderTexture(zone: MuseumZone): THREE.CanvasTexture {
+  const canvas = document.createElement('canvas')
+  canvas.width = 1500
+  canvas.height = 200
+  const ctx = canvas.getContext('2d')
+
+  if (ctx) {
+    // Navy blue enamel base
+    ctx.fillStyle = '#0b162c'
+    ctx.fillRect(0, 0, 1500, 200)
+
+    // Gold border
+    ctx.lineWidth = 6
+    ctx.strokeStyle = '#d4af37'
+    ctx.strokeRect(8, 8, 1484, 184)
+
+    // Inner fine border
+    ctx.lineWidth = 2
+    ctx.strokeStyle = 'rgba(212, 175, 55, 0.45)'
+    ctx.strokeRect(18, 18, 1464, 164)
+
+    // Tag Code
+    ctx.textAlign = 'center'
+    ctx.fillStyle = '#38bdf8'
+    ctx.font = 'bold 22px "Segoe UI", Arial, sans-serif'
+    ctx.fillText(`${zone.code} • UNIVERSITAS DIPONEGORO`, 750, 48)
+
+    // Title
+    ctx.fillStyle = '#ffffff'
+    ctx.font = 'bold 42px "Times New Roman", Georgia, serif'
+    ctx.fillText(zone.title.toUpperCase(), 750, 102)
+
+    // Subtitle
+    ctx.fillStyle = '#d4af37'
+    ctx.font = 'italic 22px "Segoe UI", Arial, sans-serif'
+    ctx.fillText(zone.subtitle, 750, 146)
+  }
+
+  const texture = new THREE.CanvasTexture(canvas)
+  texture.colorSpace = THREE.SRGBColorSpace
+  return texture
+}
+
 export function MuseumRoomEnvironment({ zone, onNavigateZone }: MuseumRoomEnvironmentProps) {
   const floorTexture = useMemo(() => createMuseumParquetTexture(), [])
+  const headerTexture = useMemo(() => createZoneHeaderTexture(zone), [zone])
   const [logoTexture, setLogoTexture] = useState<THREE.Texture | null>(null)
 
   useEffect(() => {
@@ -232,12 +277,16 @@ export function MuseumRoomEnvironment({ zone, onNavigateZone }: MuseumRoomEnviro
       {/* Grand Zone Header Plaque directly beneath logo */}
       <group position={[0, 3.8, -halfL + 0.12]}>
         <mesh castShadow>
-          <boxGeometry args={[8.4, 0.75, 0.08]} />
+          <boxGeometry args={[8.4, 0.85, 0.08]} />
           <meshStandardMaterial color="#0f2347" roughness={0.35} metalness={0.75} />
         </mesh>
         <mesh position={[0, 0, 0.045]}>
-          <boxGeometry args={[8.5, 0.85, 0.02]} />
+          <boxGeometry args={[8.5, 0.95, 0.02]} />
           <meshStandardMaterial color="#d4af37" metalness={0.85} roughness={0.2} />
+        </mesh>
+        <mesh position={[0, 0, 0.058]}>
+          <planeGeometry args={[8.2, 0.75]} />
+          <meshBasicMaterial map={headerTexture} transparent />
         </mesh>
       </group>
 
@@ -263,56 +312,84 @@ export function MuseumRoomEnvironment({ zone, onNavigateZone }: MuseumRoomEnviro
         )),
       )}
 
-      {/* 10. Grand Archway Portals to Next & Previous Zones */}
+      {/* =========================================================
+          10. GRAND ARCHWAY PORTALS & INTERACTIVE PRESSURE PLATES
+          ========================================================= */}
+      {/* Forward Archway Portal (To Next Zone) */}
       {nextZoneNumber && (
-        <group
-          position={[6.5, 0, halfL - 0.2]}
-          onClick={() => onNavigateZone(`zona-${nextZoneNumber}`)}
-          onPointerOver={() => {
-            document.body.style.cursor = 'pointer'
-          }}
-          onPointerOut={() => {
-            document.body.style.cursor = ''
-          }}
-        >
-          <mesh position={[0, 1.8, 0]} castShadow>
-            <boxGeometry args={[2.4, 3.6, 0.25]} />
-            <meshStandardMaterial color="#382212" roughness={0.4} />
-          </mesh>
-          <mesh position={[0, 1.6, 0.08]}>
-            <planeGeometry args={[1.8, 3.2]} />
-            <meshBasicMaterial color="#0f2347" />
-          </mesh>
-          <mesh position={[0, 3.8, 0.16]}>
-            <boxGeometry args={[2.6, 0.5, 0.08]} />
-            <meshStandardMaterial color="#d4af37" metalness={0.8} roughness={0.3} />
-          </mesh>
+        <group>
+          <group
+            position={[6.5, 0, halfL - 0.2]}
+            onClick={() => onNavigateZone(`zona-${nextZoneNumber}`)}
+            onPointerOver={() => {
+              document.body.style.cursor = 'pointer'
+            }}
+            onPointerOut={() => {
+              document.body.style.cursor = ''
+            }}
+          >
+            <mesh position={[0, 1.8, 0]} castShadow>
+              <boxGeometry args={[2.6, 3.6, 0.25]} />
+              <meshStandardMaterial color="#382212" roughness={0.4} />
+            </mesh>
+            <mesh position={[0, 1.6, 0.08]}>
+              <planeGeometry args={[1.9, 3.2]} />
+              <meshBasicMaterial color="#0b1730" />
+            </mesh>
+            <mesh position={[0, 3.8, 0.16]}>
+              <boxGeometry args={[2.8, 0.5, 0.08]} />
+              <meshStandardMaterial color="#d4af37" metalness={0.8} roughness={0.3} />
+            </mesh>
+          </group>
+
+          {/* Interactive Gaming-style Pressure Plate with Light Beam at Portal Entrance */}
+          <PressurePlate
+            position={[6.5, 0, halfL - 2.2]}
+            onStepOn={() => onNavigateZone(`zona-${nextZoneNumber}`)}
+            beamColor="#38bdf8"
+            accentColor="#0284c7"
+            label={`MENUJU ZONA ${nextZoneNumber}`}
+            sublabel="Injak untuk Masuk"
+          />
         </group>
       )}
 
+      {/* Backward Archway Portal (To Previous Zone) */}
       {prevZoneNumber && (
-        <group
-          position={[-6.5, 0, halfL - 0.2]}
-          onClick={() => onNavigateZone(`zona-${prevZoneNumber}`)}
-          onPointerOver={() => {
-            document.body.style.cursor = 'pointer'
-          }}
-          onPointerOut={() => {
-            document.body.style.cursor = ''
-          }}
-        >
-          <mesh position={[0, 1.8, 0]} castShadow>
-            <boxGeometry args={[2.4, 3.6, 0.25]} />
-            <meshStandardMaterial color="#382212" roughness={0.4} />
-          </mesh>
-          <mesh position={[0, 1.6, 0.08]}>
-            <planeGeometry args={[1.8, 3.2]} />
-            <meshBasicMaterial color="#0f2347" />
-          </mesh>
-          <mesh position={[0, 3.8, 0.16]}>
-            <boxGeometry args={[2.6, 0.5, 0.08]} />
-            <meshStandardMaterial color="#d4af37" metalness={0.8} roughness={0.3} />
-          </mesh>
+        <group>
+          <group
+            position={[-6.5, 0, halfL - 0.2]}
+            onClick={() => onNavigateZone(`zona-${prevZoneNumber}`)}
+            onPointerOver={() => {
+              document.body.style.cursor = 'pointer'
+            }}
+            onPointerOut={() => {
+              document.body.style.cursor = ''
+            }}
+          >
+            <mesh position={[0, 1.8, 0]} castShadow>
+              <boxGeometry args={[2.6, 3.6, 0.25]} />
+              <meshStandardMaterial color="#382212" roughness={0.4} />
+            </mesh>
+            <mesh position={[0, 1.6, 0.08]}>
+              <planeGeometry args={[1.9, 3.2]} />
+              <meshBasicMaterial color="#0b1730" />
+            </mesh>
+            <mesh position={[0, 3.8, 0.16]}>
+              <boxGeometry args={[2.8, 0.5, 0.08]} />
+              <meshStandardMaterial color="#d4af37" metalness={0.8} roughness={0.3} />
+            </mesh>
+          </group>
+
+          {/* Interactive Gaming-style Pressure Plate with Light Beam at Return Portal */}
+          <PressurePlate
+            position={[-6.5, 0, halfL - 2.2]}
+            onStepOn={() => onNavigateZone(`zona-${prevZoneNumber}`)}
+            beamColor="#d4af37"
+            accentColor="#c59b27"
+            label={`KEMBALI KE ZONA ${prevZoneNumber}`}
+            sublabel="Injak untuk Kembali"
+          />
         </group>
       )}
     </group>

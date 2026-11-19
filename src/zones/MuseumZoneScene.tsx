@@ -5,6 +5,7 @@ import { MUSEUM_ZONES, type ExhibitItem } from './types'
 import { MuseumRoomEnvironment } from './MuseumRoomEnvironment'
 import { MuseumExhibitsRenderer } from './MuseumExhibitsRenderer'
 import { DiponegoroMonument } from './DiponegoroMonument'
+import { TembalangCampusMaket } from './TembalangCampusMaket'
 import { DiponegoroViewer } from './DiponegoroViewer'
 import { ModernControls } from '../modern/ModernControls'
 import { ExhibitDetailPanel } from './ExhibitDetailPanel'
@@ -116,6 +117,26 @@ export function MuseumZoneScene({ currentZoneId, onSwitchZone }: MuseumZoneScene
                   description:
                     'Patung Pangeran Diponegoro yang gagah menunggangi kuda hitam legam yang sedang berjingkrak dengan keris terhunus ke depan melambangkan tekad bulat pantang menyerah dalam menegakkan kebenaran. Pangeran Diponegoro adalah Pahlawan Nasional Indonesia pemimpin Perang Jawa (1825–1830) yang namanya diabadikan oleh Presiden Ir. Soekarno sebagai nama Universitas Diponegoro pada tanggal 9 Januari 1960.',
                   imagePath: '/brand/patung_diponegoro.png',
+                  modelType: 'stand',
+                  position: [0, 0, 0],
+                })
+              }}
+            />
+          )}
+
+          {/* 3D Masterplan: Maket Kampus Terpadu Tembalang (Centerpiece of Zone 2) */}
+          {currentZoneId === 'zona-2' && (
+            <TembalangCampusMaket
+              position={[0, 0, 0]}
+              onSelect={() => {
+                setSelectedExhibit({
+                  id: 'z2-maket-tembalang',
+                  title: 'Maket Masterplan Kampus Terpadu Tembalang (180 Ha)',
+                  subtitle: 'Pusat Keunggulan Sains, Rektorat Widya Puraya & Kampus Hijau Lestari',
+                  category: 'Transformasi Kampus',
+                  year: '1985–Sekarang',
+                  description:
+                    'Maket 3D interaktif kawasan kampus terpadu Tembalang seluas 180 hektar di perbukitan selatan Semarang. Menampilkan gedung rektorat Widya Puraya beratap joglo modern bertingkat, danau resapan air, komplek 11 fakultas modern, gedung laboratorium riset, serta infrastruktur kampus hijau berstandar UI GreenMetric.',
                   modelType: 'stand',
                   position: [0, 0, 0],
                 })
